@@ -18,3 +18,6 @@ jobs:
       - name: Print message
         run: echo "Hello, Github Actions Bye!"
 
+# By default, jobs run parallely
+
+
