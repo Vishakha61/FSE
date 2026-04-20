@@ -10,7 +10,7 @@ jobs:
       - name: Print message
         run: echo "Hello, Github Actions!"
       - name: Print name
-        run: echo "Ravneet"
+        run: echo "Vishakha"
   say-bye:
     needs: say-hello
     runs-on: ubuntu-latest
