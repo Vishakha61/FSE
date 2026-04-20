@@ -12,7 +12,7 @@ jobs:
       - name: Print name
         run: echo "Ravneet"
   say-bye:
-    needs:say-hello
+    needs: say-hello
     runs-on: ubuntu-latest
 
     steps:
@@ -21,6 +21,5 @@ jobs:
 
 # By default, jobs run parallely
 #To run time in sequence, we use needs.
-#
 
 
