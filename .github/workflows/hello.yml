@@ -30,6 +30,6 @@ jobs:
 
 #USES ACTION (keyword): 
 #Action : Reusable piece of code and a type of built in function provided by github..
-Steps- clone a repo
+# Steps- clone a repo
 
 
