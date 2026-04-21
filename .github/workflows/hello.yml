@@ -28,6 +28,7 @@ jobs:
         run: echo "Hello, Github Actions Bye!"
         
   deploy-app:
+    needs: say-hello
     runs-on: ubuntu-latest
 
     steps:
