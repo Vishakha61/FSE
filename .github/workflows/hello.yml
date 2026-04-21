@@ -26,6 +26,19 @@ jobs:
     steps:
       - name: Print message
         run: echo "Hello, Github Actions Bye!"
+        
+  deploy-app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+      - name: start server
+        run: node server.js
+      - name: list file
+        run: ls
 
 # By default, jobs run parallely
 #To run time in sequence, we use needs.
