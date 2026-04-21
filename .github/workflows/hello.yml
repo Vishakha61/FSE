@@ -14,6 +14,8 @@ jobs:
         uses: actions/setup-node@v4
       - name: Checking Node version
         run: node -v
+      - name: starting test
+        run: npm run test
       - name: list file
         run: ls
         
