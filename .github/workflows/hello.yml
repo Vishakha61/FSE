@@ -1,49 +1,63 @@
-name: My first Workflow
+name: My First CI/CD Workflow
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  
-  say-hello:
+
+  ci-pipeline:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup node
-        uses: actions/setup-node@v4
-      - name: Checking Node version
-        run: node -v
-      - name: starting test
-        run: npm run test
-      - name: list file
-        run: ls
-        
-  say-bye:
-    needs: say-hello
-    runs-on: ubuntu-latest
 
-    steps:
-      - name: Print message
-        run: echo "Hello, Github Actions Bye!"
-        
-  deploy-app:
-    needs: say-hello
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Setup node
+      # Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
-      - name: install dependencies
+        with:
+          node-version: '18'
+
+      # Install dependencies
+      - name: Install dependencies
         run: npm install
-      - name: start server
-        run: node server.js
-      - name: deploy step
-        run: echo "deploy step"
-        
-      - name: list file
+
+      # 1. Linting check
+      - name: Run lint
+        run: npm run lint
+
+      # 2. Run tests
+      - name: Run tests
+        run: npm test
+
+      # 3. Build project
+      - name: Build project
+        run: npm run build
+
+  deploy-app:
+    needs: ci-pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy application
+        run: echo "Deploying application..."
+
+      - name: List files
         run: ls
 
 # By default, jobs run parallely
