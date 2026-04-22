@@ -1,64 +1,51 @@
-name: My First CI/CD Workflow
+name: My First Workflow
 
-on:
-  push:
-    branches:
-      - main
+on: push
 
 jobs:
-
-  ci-pipeline:
-    runs-on: ubuntu-latest
+  say-hello:
+    runs-on: ubuntu-latest 
 
     steps:
-      # Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Setup Node.js
       - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+        uses: actions/setup-node@v4 
 
-      # Install dependencies
+      - name: Check Node version
+        run: node -v
+
       - name: Install dependencies
         run: npm install
 
-      # 1. Linting check
+      # ✅ 1. Lint
       - name: Run lint
         run: npm run lint
 
-      # 2. Run tests
-      - name: Run tests
-        run: npm test
+      # ✅ 2. Test
+      - name: Run test
+        run: npm run test
 
-      # 3. Build project
+      # ✅ 3. Build
       - name: Build project
         run: npm run build
 
-  deploy-app:
-    needs: ci-pipeline
-    runs-on: ubuntu-latest
+  say-bye:
+    runs-on: ubuntu-latest  
+    needs: say-hello
 
     steps:
+      - name: Print message
+        run: echo "Hello, Github Actions Bye!"
 
-      - name: Checkout code
-        uses: actions/checkout@v4
+  deploy: 
+    runs-on: ubuntu-latest
+    needs: say-hello
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Deploy application
-        run: echo "Deploying application..."
-
-      - name: List files
-        run: ls
+    steps:
+      - name: Print Deploy
+        run: echo "Deploy step"
 
 # By default, jobs run parallely
 #To run time in sequence, we use needs.
